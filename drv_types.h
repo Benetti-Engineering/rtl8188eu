@@ -1392,4 +1392,8 @@ int rtw_change_ifname(_adapter *padapter, const char *ifname);
 	#include <usb_ops.h>
 	#include <usb_hal.h>
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(7, 2, 0)
+#define strncpy(dst, src, n) strscpy(dst, src, n)
+#endif
+
 #endif /* __DRV_TYPES_H__ */
