@@ -147,6 +147,14 @@ static struct specific_device_id specific_device_id_tbl[] = {
 	{}
 };
 
+#ifndef RTW_USB_HAS_DRVWRAP
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 19)) && (LINUX_VERSION_CODE < KERNEL_VERSION(6, 8, 0))
+#define RTW_USB_HAS_DRVWRAP 1
+#else
+#define RTW_USB_HAS_DRVWRAP 0
+#endif
+#endif
+
 struct rtw_usb_drv {
 	struct usb_driver usbdrv;
 	int drv_registered;
@@ -167,7 +175,7 @@ static struct rtw_usb_drv usb_drv = {
 	.usbdrv.supports_autosuspend = 1,
 #endif
 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 19)) && (LINUX_VERSION_CODE < KERNEL_VERSION(6, 8, 0))
+#if RTW_USB_HAS_DRVWRAP
 	.usbdrv.drvwrap.driver.shutdown = rtw_dev_shutdown,
 #else
 	.usbdrv.driver.shutdown = rtw_dev_shutdown,

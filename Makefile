@@ -17,6 +17,17 @@ endif
 
 ccflags-y += -I$(src)
 
+# Member drvwrap of struct usb_driver has been dropped in Linux 6.8 and this
+# change has been backported to stable kernels too (i.e. 6.1.188), so a
+# version check is not enough. Let's detect it from kernel headers instead.
+ifneq ($(wildcard $(srctree)/include/linux/usb.h),)
+ifneq ($(shell grep -l "struct usbdrv_wrap" $(srctree)/include/linux/usb.h),)
+ccflags-y += -DRTW_USB_HAS_DRVWRAP=1
+else
+ccflags-y += -DRTW_USB_HAS_DRVWRAP=0
+endif
+endif
+
 CONFIG_AUTOCFG_CP = n
 
 ########################## Features ###########################
