@@ -36,6 +36,8 @@ CONFIG_POWER_SAVING = y
 CONFIG_EFUSE_CONFIG_FILE = y
 CONFIG_TRAFFIC_PROTECT = y
 CONFIG_LOAD_PHY_PARA_FROM_FILE = y
+CONFIG_TXPWR_BY_RATE_EN = n
+CONFIG_TXPWR_LIMIT_EN = n
 CONFIG_RTW_ADAPTIVITY_EN = disable
 CONFIG_RTW_ADAPTIVITY_MODE = normal
 CONFIG_BR_EXT = y
@@ -91,7 +93,7 @@ _HAL_INTFS_FILES :=	hal_intf.o \
 			hal_usb.o \
 			hal_usb_led.o
 
-			
+
 _OUTSRC_FILES := phydm_debug.o	\
 		phydm_antdiv.o\
 		phydm_antdect.o\
@@ -400,7 +402,7 @@ rtk_core :=	rtw_cmd.o \
 		rtw_btcoex.o \
 		rtw_beamforming.o \
 		rtw_odm.o \
-		rtw_efuse.o 
+		rtw_efuse.o
 
 8188eu-y += $(rtk_core)
 
